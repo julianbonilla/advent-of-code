@@ -1,9 +1,9 @@
-(ns advent-2018.day1
+(ns advent-2018.day01
   (:require [clojure.java.io :as io]))
 
 (def data (mapv
            (comp read-string str)
-           (slurp (io/resource "advent_2017/day1/input"))))
+           (slurp (io/resource "advent_2017/day01/input"))))
 
 (defn count-em [d]
   (->>
