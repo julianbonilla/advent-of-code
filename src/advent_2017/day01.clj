@@ -1,4 +1,4 @@
-(ns advent-2018.day01
+(ns advent-2017.day01
   (:require [clojure.java.io :as io]))
 
 (def data (mapv
