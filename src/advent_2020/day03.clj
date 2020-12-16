@@ -29,9 +29,25 @@
         trees (filter #(= \# %1) spots)]
     (count trees)))
 
-;; Traverse map using a slope of 3
+;; Part 1 - traverse map using a slope of 3
 (navigate terrain 3)
 ;; => 234
+
+;; Part 2 - multiply series of traversal with different slopes
+;; Right 1, down 1.
+;; Right 3, down 1. (This is the slope you already checked.)
+;; Right 5, down 1.
+;; Right 7, down 1.
+;; Right 1, down 2.
+;; [[1 1] [3 1] [5 1] [7 1] [1 2]]
+
+(*
+ (navigate terrain 1)
+ (navigate terrain 3)
+ (navigate terrain 5)
+ (navigate terrain 7)
+ (navigate (take-nth 2 terrain) 1))
+;; => 5813773056
 
 (comment
   (count (first terrain))
