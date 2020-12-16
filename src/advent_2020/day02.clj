@@ -1,7 +1,5 @@
 (ns advent-2020.day02
-  (:require
-   [clojure.string :as str]
-   [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]))
 
 (def demo-input "1-3 a: abcde
 1-3 b: cdefg
