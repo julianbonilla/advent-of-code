@@ -47,6 +47,32 @@ iyr:2011 ecl:brn hgt:59in")
      slurp
      (split #"\n{2}")
      (map parse-passport)
-     (filter valid-passport?)
+     ;; (filter valid-passport?)
+     (filter valid-passport2?)
      count)
+;; => 172
 ;; => 237
+
+;; Part 2 - valid passports now have more validation
+(defn valid-passport2? [{:keys [pid ecl eyr hcl byr iyr hgt]}]
+  (and pid ecl eyr hcl byr iyr hgt
+       ;; byr (Birth Year) - four digits; at least 1920 and at most 2002.
+       (<= 1920 (Integer/parseInt byr) 2002)
+       ;; iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+       (<= 2010 (Integer/parseInt iyr) 2020)
+       ;; eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+       (<= 2020 (Integer/parseInt eyr) 2030)
+       ;; hgt (Height) - a number followed by either cm or in:
+       ;; If cm, the number must be at least 150 and at most 193.
+       ;; If in, the number must be at least 59 and at most 76.
+       (let [[_ number measurement] (re-matches #"(\d+)(cm|in)" hgt)]
+         (case measurement
+           "cm" (<= 150 (Integer/parseInt number) 193)
+           "in" (<= 59 (Integer/parseInt number) 76)
+           false))
+       ;; hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+       (re-matches #"#[0-9a-f]{6}" hcl)
+       ;; ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+       (contains? #{"amb" "blu" "brn" "gry" "grn" "hzl" "oth"} ecl)
+       ;; pid (Passport ID) - a nine-digit number, including leading zeroes
+       (re-matches #"[0-9]{9}" pid)))
