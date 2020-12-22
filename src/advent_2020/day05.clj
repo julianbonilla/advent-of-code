@@ -1,6 +1,6 @@
 (ns advent-2020.day05
-  (:require [clojure.string :as str]
-            [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]))
 
 ;; F => front (0)
 ;; B => back  (1)
@@ -22,19 +22,19 @@
 (parse-seat seat)
 ;; => 357
 
-(defn read-input [resource]
-  (->> resource
+(def input
+  (->> (io/resource "advent_2020/day05/input.txt")
        slurp
        str/split-lines))
 
 ;; Part 1 - what's the highest seat
-(->> (read-input (io/resource "advent_2020/day05/input.txt"))
+(->> input
      (map parse-seat2)
      (apply max))
 ;; => 901
 
 ;; Part 2 - what's your seat?
-(->> (read-input (io/resource "advent_2020/day05/input.txt"))
+(->> input
      (map parse-seat2)
      sort
      (partition 2 1)
