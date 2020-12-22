@@ -36,22 +36,12 @@ iyr:2011 ecl:brn hgt:59in")
 ;; => (["ecl" "gry"] ["pid" "860033327"] ["eyr" "2020"] ["hcl" "#fffffd"] ["byr" "1937"] ["iyr" "2017"] ["cid" "147"] ["hgt" "183cm"])
 ;; => ["ecl:gry" "pid:860033327" "eyr:2020" "hcl:#fffffd" "byr:1937" "iyr:2017" "cid:147" "hgt:183cm"]
 
+;; Part 1 - count the number of valid passports
 (defn valid-passport? [{:keys [pid ecl eyr hcl byr iyr hgt]}]
   (and pid ecl eyr hcl byr iyr hgt))
 
 (valid-passport? (parse-passport demo-passport))
 ;; => "183cm"
-
-;; Part 1 - count the number of valid passports
-(->> (io/resource "advent_2020/day04/input.txt")
-     slurp
-     (split #"\n{2}")
-     (map parse-passport)
-     ;; (filter valid-passport?)
-     (filter valid-passport2?)
-     count)
-;; => 172
-;; => 237
 
 ;; Part 2 - valid passports now have more validation
 (defn valid-passport2? [{:keys [pid ecl eyr hcl byr iyr hgt]}]
@@ -76,3 +66,13 @@ iyr:2011 ecl:brn hgt:59in")
        (contains? #{"amb" "blu" "brn" "gry" "grn" "hzl" "oth"} ecl)
        ;; pid (Passport ID) - a nine-digit number, including leading zeroes
        (re-matches #"[0-9]{9}" pid)))
+
+(->> (io/resource "advent_2020/day04/input.txt")
+     slurp
+     (split #"\n{2}")
+     (map parse-passport)
+     ;; (filter valid-passport?)
+     (filter valid-passport2?)
+     count)
+;; => Part 2: 172
+;; => Part 1: 237
