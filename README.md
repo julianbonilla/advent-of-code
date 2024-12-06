@@ -1,3 +1,3 @@
 # Advent of Code
 
-[Advent of Code](http://adventofcode.com) in _Clojure_.
+[Advent of Code](http://adventofcode.com).
